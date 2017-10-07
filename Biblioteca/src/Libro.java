@@ -21,12 +21,12 @@ public class Libro extends Documento{
     }
     /**
      * Este metodo genera libros
-     * @param idLibro
-     * @param tituloLibro
-     * @param autorLibro
-     * @param materiaLibro
-     * @param editorialLibro
-     * @param cantidadLibro 
+     * @param idLibro un string con el id del libro
+     * @param tituloLibro un string con el titulo del libro
+     * @param autorLibro un string con el autor del libro
+     * @param materiaLibro un String con la material del libro
+     * @param editorialLibro un string con la editorial del libro
+     * @param cantidadLibro un int con la cantidad de libros
      */
     public void setLibro(String idLibro, String tituloLibro, String autorLibro,String materiaLibro,String editorialLibro,int cantidadLibro){
         super.setDocumento(idLibro, tituloLibro, materiaLibro, cantidadLibro);

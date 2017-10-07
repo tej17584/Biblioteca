@@ -14,39 +14,43 @@ import java.util.ArrayList;
  * La clase cliente es la que se enlaca con la Bilbioteca para poder tener una lista de clientes y una lista de documentos
  */
 public class Cliente {
-    protected ArrayList<Documento> documento;
+    protected ArrayList<Documento> prestamo;
     protected int diasP;
     protected String idCliente;
     protected String direccionCliente;
+    protected String nombreCliente;
     protected int docEnPrestamo;
     protected int docPrestados;
     
     public Cliente(){
-        this.documento= new ArrayList<>();
+        this.prestamo= new ArrayList<Documento>();
         this.diasP=0;
         this.idCliente="";
         this.direccionCliente="";
         this.docPrestados=0;
         this.docEnPrestamo=0;
+        this.nombreCliente="";
     }
     /**
      * Este metodo crea un cliente nuevo
      * @param idCliente el id del cliente nuevo
+     * @param nombreCliente un string con el nombre del cliente
      * @param direccionCliente la direccion del cliente nuevo 
      */
-    public void setCliente(String idCliente, String direccionCliente){
+    public void setCliente(String idCliente, String nombreCliente,String direccionCliente){
         this.idCliente=idCliente;
         this.direccionCliente=direccionCliente;
         this.diasP=0;
         this.docPrestados=0;
         this.docEnPrestamo=0;
+        this.nombreCliente=nombreCliente;
     }
     /**
      * este metodo aumenta los documentos pretados totales
-     * @param idCliente 
+     * @param idCliente es un string con el id del cliente
      */
     public void aumentarDocPrestados(String idCliente){
-        if (this.idCliente == null ? idCliente == null : this.idCliente.equals(idCliente)) {
+        if (this.idCliente.equals(idCliente)) {
             this.docPrestados++;
         }
     }
@@ -65,5 +69,23 @@ public class Cliente {
     public String getDireccionCliente(){
         return this.direccionCliente;
     }
+    
+    public int getDocPrestados(){
+        return this.docEnPrestamo;
+    }
+    
+    public String getNombreCliente(){
+        return this.nombreCliente;
+    }
+    
+    public void setPrestamo(Documento doc){
+       prestamo.add(doc);   
+    }
+    
+    public int getCantidadArray(String idCliente){
+        return this.prestamo.size();
+    }
+    
+   
     
 }
