@@ -47,7 +47,7 @@ public final class Biblioteca {
         Revista r3= new Revista();
         a1.setArticulo("111110", "Los Cinco Furiosos", "Ciencia", 5, "Didier Lopez");
         documentos.add(a1);
-        a2.setArticulo("111111", "El Mouse", "Tecnologia", 3, "Mouse Lopez");
+        a2.setArticulo("111111", "El Mouse", "Tecnologia", 0, "Mouse Lopez");
         documentos.add(a2);
         a3.setArticulo("111112", "La computadora", "Tecnologia", 6, "Marlon Lopez");
         documentos.add(a3);
@@ -73,19 +73,65 @@ public final class Biblioteca {
         documentos.add(c3);
     }
     /**
-     * Este metodo es vacio 
+     * Este metodo genera libros
+     * @param idLibro un string con el id del libro
+     * @param tituloLibro un string con el titulo del libro
+     * @param autorLibro un string con el autor del libro
+     * @param materiaLibro un String con la material del libro
+     * @param editorialLibro un string con la editorial del libro
+     * @param cantidadLibro un int con la cantidad de libros
      */
-    public void getconteoLista(){
-        int s=0;
-        Documento doc=null;
-        for (int i = 0; i < documentos.size(); i++) {
-            doc=documentos.get(i);
-            System.out.println("Nombre "+doc.getTituloDoc());
-        }   
+    public void setLibro(String idLibro, String tituloLibro, String autorLibro,String materiaLibro,String editorialLibro,int cantidadLibro){
+        Libro libro= new Libro();
+        libro.setLibro(idLibro, tituloLibro, autorLibro, materiaLibro, editorialLibro, cantidadLibro);
+        documentos.add(libro);
     }
+    /**
+     * ESte metodo crea un nuevo documento de tipo Cd
+     * @param idCD un string con el Id del CD
+     * @param tituloCd un string con el titulo
+     * @param materiaCd un string con la material del CD
+     * @param cantidadCD un int con la cantidad de Cd
+     * @param casaProductoraCD un String con la casa de produccion
+     * @param fechaProduccionCD  un String con la fecha de produccion
+     */
+    public void setCd(String idCD, String tituloCd, String materiaCd, int cantidadCD, String casaProductoraCD, String fechaProduccionCD){
+        Cd cd= new Cd();
+        cd.setCd(idCD, tituloCd, materiaCd, cantidadCD, casaProductoraCD, fechaProduccionCD);
+        documentos.add(cd);
+    }
+    /**
+     * Este metodo crea una nueva revista
+     * @param idRevista el ide de la revista
+     * @param tituloRevista el titulo de la revista
+     * @param materiaRevista la materia d ela revista
+     * @param cantidadRevista la cantidad de revistaas
+     * @param anioPRevista el año d epublicacion
+     * @param numeroDeRevista  el numero de edicion de revista
+     */
+    public void setRevista(String idRevista, String tituloRevista, String materiaRevista, int cantidadRevista, String anioPRevista, String numeroDeRevista){
+        Revista revista= new Revista();
+        revista.setRevista(idRevista, tituloRevista, materiaRevista, cantidadRevista, anioPRevista, numeroDeRevista);
+        documentos.add(revista);
+    }
+    /**
+     * Este crea un nuevo articulo
+     * @param idArticulo el ide del articulo
+     * @param tituloArticulo el titulo del articulo
+     * @param materiaArticulo la materia del articulo
+     * @param cantidadArticulo la cantidad de articulos
+     * @param arbitroArticulo el arbitro del articulo
+     */
+    public void setArticulo(String idArticulo, String tituloArticulo, String materiaArticulo, int cantidadArticulo, String arbitroArticulo){
+        Articulo articulo = new Articulo();
+        articulo.setArticulo(idArticulo, tituloArticulo, materiaArticulo, cantidadArticulo, arbitroArticulo);
+        documentos.add(articulo);
+    }
+    
     /**
      * Este metodo crea un nuevo cliente
      * @param idCliente el id del cliente
+     * @param nombreCliente el nombre del cliente
      * @param direccionCliente la direccion del cliente
      */
     public void setCliente(String idCliente, String nombreCliente,String direccionCliente){
@@ -99,9 +145,12 @@ public final class Biblioteca {
         try {
             doc=getDocumentoId(idDocumento);
             cliente=buscarClienteId(idCliente);
-            if (cliente.getDocPrestados()==5) {
+            if ((cliente.getDocPrestados()==5)) {
                 JOptionPane.showMessageDialog(null, "No se puede prestar otro documento, ya pasó su limite.");
-            } else{
+            }else if (doc.getCantidadDoc()<=0) {
+                JOptionPane.showMessageDialog(null, "No hay existencias para este documento. Intente otro dia.");
+            }  
+            else{
                 cliente.setPrestamo(doc);
                 cliente.aumentarDocEnPretamo(idCliente);
                 cliente.aumentarDocPrestados(idCliente);
@@ -162,7 +211,7 @@ public final class Biblioteca {
         System.out.println("HOLAAAAAAAAAA");
         biblioteca.setCliente("17584", "Alejandro Tejada", "zona 18");
         biblioteca.setCliente("17238", "Diego Sevilla", "Mixco");
-        biblioteca.setPrestamo("17584", "222222");
-        biblioteca.setPrestamo("17584", "222222");
+        biblioteca.setPrestamo("17584", "111111");
+        
     }
 }
