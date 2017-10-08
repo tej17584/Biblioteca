@@ -54,38 +54,63 @@ public class Cliente {
             this.docPrestados++;
         }
     }
-    
+    /**
+     * Este metodo aumenta docs en prestamo
+     * @param idCliente id del cliente
+     */
     public void aumentarDocEnPretamo(String idCliente){
         this.docEnPrestamo++;
     }
-    
+    /**
+     * Este metodo quita docs en prestamo
+     */
+    public void quitarDocEnPrestamo(){
+        this.docEnPrestamo--;
+    }
+    /**
+     * Este metodo retonra los docs prestados
+     * @return un int
+     */
     public int getDocPrestadosTotal(){
         return this.docPrestados;
     }
-    
+    /**
+     * REtorna el id del cliente
+     * @return un id con el cliente
+     */
     public String getIdCliente(){
         return this.idCliente;
     }
+    
+    /**
+     * Este metodo retorna la direccion del cliente
+     * @return un string
+     */
     public String getDireccionCliente(){
         return this.direccionCliente;
     }
-    
+    /**
+     * Este metodo retorna un doc
+     * @return retorna los docs prestaos
+     */
     public int getDocPrestados(){
         return this.docEnPrestamo;
     }
-    
+    /**
+     * Este metodo da el nombre del cliente
+     * @return un String con el nombre
+     */
     public String getNombreCliente(){
         return this.nombreCliente;
     }
-    
+    /**
+     * ESte metodo setea un prestamo
+     * @param doc el documento a agregar en la lista
+     */
     public void setPrestamo(Documento doc){
        prestamo.add(doc);   
     }
-    
-    public int getCantidadArray(String idCliente){
-        return this.prestamo.size();
-    }
+}
     
    
-    
-}
+

@@ -1,4 +1,6 @@
 
+
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /*
@@ -13,12 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class Interfaz extends javax.swing.JFrame {
     public Biblioteca biblioteca;
+    public Cliente cliente;
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
         biblioteca= new Biblioteca();
+        cliente = new Cliente();
     }
 
     /**
@@ -124,9 +128,9 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         jTextFieldNombreClienteNuevo = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
-        jTextFieldNombreClienteNuevo1 = new javax.swing.JTextField();
+        jTextFieldIdClienteNuevo = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
-        jTextFieldNombreClienteNuevo2 = new javax.swing.JTextField();
+        jTextFieldDireccionClienteNuevo = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
         jButtonIngresarClienteNuevo = new javax.swing.JButton();
 
@@ -172,6 +176,8 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel8.setText("Título");
 
         jLabel9.setText("ID");
+
+        jTextFieldIDLibro.setMaximumSize(new java.awt.Dimension(6, 6));
 
         jLabel10.setText("Autor");
 
@@ -267,6 +273,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel16.setText("Materia");
 
         jButtonIngresarArticulo.setText("INGRESAR ARTICULO");
+        jButtonIngresarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarArticuloActionPerformed(evt);
+            }
+        });
 
         jComboBoxMateriaArticulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ciencia", "Historia", "Filosofia", "Tecnologia","Popular" }));
 
@@ -353,6 +364,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel25.setText("Cantidad");
 
         jButtonIngresarRevista.setText("INGRESAR REVISTA");
+        jButtonIngresarRevista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarRevistaActionPerformed(evt);
+            }
+        });
 
         jComboBoxMateriaRevista.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ciencia", "Historia", "Filosofia", "Tecnologia","Popular" }));
 
@@ -439,6 +455,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel32.setText("Cantidad");
 
         jButtonIngresarCd.setText("NGRESAR CD");
+        jButtonIngresarCd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarCdActionPerformed(evt);
+            }
+        });
 
         jComboBoxMateriaCd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ciencia", "Historia", "Filosofia", "Tecnologia","Popular" }));
 
@@ -517,7 +538,9 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(84, 84, 84))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,6 +580,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel33.setText("Materia");
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Buscar Documento por Materia");
@@ -592,6 +620,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel34.setText("Id Cliente");
 
         jButtonPrestarDocumento.setText("Prestar Documento");
+        jButtonPrestarDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrestarDocumentoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Prestar Documento");
@@ -599,6 +632,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel35.setText("ID documento");
 
         jButtonProrroga.setText("Prorroga");
+        jButtonProrroga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProrrogaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -647,6 +685,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel39.setText("Id Cliente");
 
         jButtonRegresarDocumento.setText("Regresar Documento");
+        jButtonRegresarDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarDocumentoActionPerformed(evt);
+            }
+        });
 
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel40.setText("Regresar Documento");
@@ -696,12 +739,22 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel42.setText("Id Cliente");
 
         jButtonRegresarDocumento1.setText("Consultar Prestamos (Ingresar ID)");
+        jButtonRegresarDocumento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarDocumento1ActionPerformed(evt);
+            }
+        });
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel43.setText("Clientes");
 
         jButtonMayoresClientes.setText("3 Mayores Clientes (Sin Id)");
+        jButtonMayoresClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMayoresClientesActionPerformed(evt);
+            }
+        });
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel44.setText("Ingresar Cliente Nuevo");
@@ -713,6 +766,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel47.setText("Dirección");
 
         jButtonIngresarClienteNuevo.setText("Ingresar");
+        jButtonIngresarClienteNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarClienteNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -734,7 +792,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel46)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldNombreClienteNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldIdClienteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButtonRegresarDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -747,7 +805,7 @@ public class Interfaz extends javax.swing.JFrame {
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jLabel47)
                                 .addGap(29, 29, 29)
-                                .addComponent(jTextFieldNombreClienteNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldDireccionClienteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonIngresarClienteNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(33, 33, 33))))
@@ -771,11 +829,11 @@ public class Interfaz extends javax.swing.JFrame {
                     .addComponent(jLabel45)
                     .addComponent(jTextFieldNombreClienteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46)
-                    .addComponent(jTextFieldNombreClienteNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIdClienteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel47)
-                    .addComponent(jTextFieldNombreClienteNuevo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDireccionClienteNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonIngresarClienteNuevo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -855,19 +913,249 @@ public class Interfaz extends javax.swing.JFrame {
         try {
             String tituloLibro=jTextFieldTituloLibro.getText();
             String idLibro=jTextFieldIDLibro.getText();
+            int idLibro2=Integer.parseInt(jTextFieldIDLibro.getText());
             String autorLibro=jTextFieldAutorLibro.getText();
             String EditorialLibro=jTextFieldEditorialLibro.getText();
             int cantidadLibros=Integer.parseInt(jTextFieldCantidadLibro.getText());
+            String materiaLibro=String.valueOf(jComboBoxMateriaLibro.getSelectedItem());
             if (cantidadLibros<=0) {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad de libros positiva y mayor a cero.");
             }
+            else if (biblioteca.verificarIDDoc(idLibro)==true) {
+                JOptionPane.showMessageDialog(null, "El Id que ingreso ya existe, pruebe con otro");
+            }
+            else if((idLibro.length()>6)||(idLibro.isEmpty())){
+                JOptionPane.showMessageDialog(null, "No puede ingresar un Id del documento mayor  6 caracteres o dejarlo vacío.");
+            }
             else{
-                biblioteca.setLibro(idLibro, tituloLibro, autorLibro, EditorialLibro, EditorialLibro, cantidadLibros);
+                biblioteca.setLibro(idLibro, tituloLibro, autorLibro, materiaLibro, EditorialLibro, cantidadLibros);
+                jTextFieldTituloLibro.setText("");
+            jTextFieldIDLibro.setText("");
+            jTextFieldIDLibro.setText("");
+            jTextFieldAutorLibro.setText("");
+            jTextFieldEditorialLibro.setText("");
+            jTextFieldCantidadLibro.setText("");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El valor ingresado en cantidad de libros debe ser un numero entero positivo.");
+            JOptionPane.showMessageDialog(null, "El valor ingresado en cantidad de libros o en el ID debe ser un numero entero positivo.");
         }
     }//GEN-LAST:event_jButtonIngresarLibroActionPerformed
+
+    private void jButtonIngresarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarArticuloActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        try {
+            String tituloArticulo=jTextFieldTituloArticulo.getText();
+            String idArticulo=jTextFieldIDArticulo.getText();
+            int idarticulo2=Integer.parseInt(jTextFieldIDArticulo.getText());
+            int cantidadArticulos=Integer.parseInt(jTextFieldCantidadArticulo.getText());
+            String arbitroArticulo=jTextFieldArbitroArticulo.getText();
+            String materiaArticulo=String.valueOf(jComboBoxMateriaArticulo.getSelectedItem());
+            if (cantidadArticulos<=0) {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad de articulo positiva y mayor a cero.");
+            }
+            else if (biblioteca.verificarIDDoc(idArticulo)==true) {
+                JOptionPane.showMessageDialog(null, "El Id que ingreso ya existe, pruebe con otro");
+            }
+            else if((idArticulo.length()>6)||(idArticulo.isEmpty())){
+                JOptionPane.showMessageDialog(null, "No puede ingresar un Id del documento mayor  6 caracteres o dejarlo vacío.");
+            }
+            else{
+                biblioteca.setArticulo(idArticulo, tituloArticulo, materiaArticulo, cantidadArticulos, arbitroArticulo);
+                jTextFieldTituloArticulo.setText("");
+            jTextFieldIDArticulo.setText("");
+            jTextFieldIDArticulo.setText("");
+            jTextFieldCantidadArticulo.setText("");
+            jTextFieldArbitroArticulo.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor ingresado en cantidad de articulos o en el ID debe ser un numero entero positivo.");
+        }
+    }//GEN-LAST:event_jButtonIngresarArticuloActionPerformed
+
+    private void jButtonIngresarRevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarRevistaActionPerformed
+        // TODO add your handling code here:
+        try {
+            String tituloRevista=jTextFieldTituloRevista.getText();
+            String idRevista=jTextFieldIDRevista.getText();
+            int idRevista2=Integer.parseInt(jTextFieldIDRevista.getText());
+            int cantidadRevistas=Integer.parseInt(jTextFieldCantidadRevista.getText());
+            String materiaRevista=String.valueOf(jComboBoxMateriaRevista.getSelectedItem());
+            
+            String anioRevista=jTextFieldAnioRevista.getText();
+            String noEjemplar=jTextFieldNoRevista.getText();
+            if (cantidadRevistas<=0) {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad de revistas positiva y mayor a cero.");
+            }
+            else if (biblioteca.verificarIDDoc(idRevista)==true) {
+                JOptionPane.showMessageDialog(null, "El Id que ingreso ya existe, pruebe con otro");
+            }
+            else if((idRevista.length()>6)||(idRevista.isEmpty())){
+                JOptionPane.showMessageDialog(null, "No puede ingresar un Id del documento mayor  6 caracteres o dejarlo vacío.");
+            }
+            else{
+                biblioteca.setRevista(idRevista, tituloRevista, materiaRevista, cantidadRevistas, anioRevista, noEjemplar);
+                jTextFieldTituloRevista.setText("");
+            jTextFieldIDRevista.setText("");
+            jTextFieldIDRevista.setText("");
+            jTextFieldCantidadRevista.setText("");
+            jTextFieldAnioRevista.setText("");
+            jTextFieldNoRevista.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor ingresado en cantidad de revistas o en el ID debe ser un numero entero positivo.");
+        }
+    }//GEN-LAST:event_jButtonIngresarRevistaActionPerformed
+
+    private void jButtonIngresarCdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarCdActionPerformed
+        // TODO add your handling code here:
+        try {
+            String tituloCd=jTextFieldTituloCd.getText();
+            String idCD=jTextFieldIDCd.getText();
+            int idCd2=Integer.parseInt(jTextFieldIDCd.getText());
+            int cantidadCd=Integer.parseInt(jTextFieldCantidadCd.getText());
+            String materiaCD=String.valueOf(jComboBoxMateriaCd.getSelectedItem());
+            
+            String anioProduccion=jTextFieldAnioCD.getText();
+            String casaProductoraCD=jTextFieldCasaProductoraCD.getText();
+            if (cantidadCd<=0) {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad de Cd's positiva y mayor a cero.");
+            }
+            else if (biblioteca.verificarIDDoc(idCD)==true) {
+                JOptionPane.showMessageDialog(null, "El Id que ingreso ya existe, pruebe con otro");
+            }
+            else if((idCD.length()>6)||(idCD.isEmpty())){
+                JOptionPane.showMessageDialog(null, "No puede ingresar un Id del documento mayor  6 caracteres o dejarlo vacío.");
+            }
+            else{
+                biblioteca.setCd(idCD, tituloCd, materiaCD, cantidadCd, casaProductoraCD, anioProduccion);
+                jTextFieldTituloCd.setText("");
+            jTextFieldIDCd.setText("");
+            jTextFieldIDCd.setText("");
+            jTextFieldCantidadCd.setText("");
+            jTextFieldCasaProductoraCD.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El valor ingresado en cantidad de Cd's o en el ID debe ser un numero entero positivo.");
+        }
+    }//GEN-LAST:event_jButtonIngresarCdActionPerformed
+
+    private void jButtonIngresarClienteNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarClienteNuevoActionPerformed
+        // TODO add your handling code here:
+        try {
+            String nombrecliente=jTextFieldNombreClienteNuevo.getText();
+            int idclientenuevo2=Integer.parseInt(jTextFieldIdClienteNuevo.getText());
+            String direccionCliente=jTextFieldDireccionClienteNuevo.getText();
+            String idclientenuevo=jTextFieldIdClienteNuevo.getText();
+            if (biblioteca.verificarIdCliente(idclientenuevo)==true) {
+                JOptionPane.showMessageDialog(null,"El ID del cliente que trata de ingresar ya existe" );
+                jTextFieldNombreClienteNuevo.setText("");
+            jTextFieldIdClienteNuevo.setText("");
+            jTextFieldDireccionClienteNuevo.setText("");
+            }
+            else{
+                biblioteca.setCliente(idclientenuevo, nombrecliente, direccionCliente);
+            jTextFieldNombreClienteNuevo.setText("");
+            jTextFieldIdClienteNuevo.setText("");
+            jTextFieldDireccionClienteNuevo.setText("");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID ingresado tiene que ser un numero entero mayor a cero.");
+        }
+    }//GEN-LAST:event_jButtonIngresarClienteNuevoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String materia=String.valueOf(jComboBoxMateriaCd1.getSelectedItem());
+            JOptionPane.showMessageDialog(null, "La cantidad de documentos de "+materia+" es de: "+biblioteca.cantidadDocumentosMateria(materia));
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error, intente con otra materia.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonPrestarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrestarDocumentoActionPerformed
+        // TODO add your handling code here:
+        try {
+            String idClientePrestamo=jTextFieldIdCliente.getText();
+            String idDocumentoPrestamo=jTextFieldIdDocument.getText();
+            int idClientePrestamo2=Integer.parseInt(jTextFieldIdCliente.getText());
+            int iddocumentoprestamo2=Integer.parseInt(jTextFieldIdDocument.getText());
+            if (idDocumentoPrestamo.length()>6) {
+                JOptionPane.showMessageDialog(null, "Ingrese un ID de 6 digitos.");
+            }
+            else{
+                biblioteca.setPrestamo(idClientePrestamo, idDocumentoPrestamo);
+            jTextFieldIdCliente.setText("");
+            jTextFieldIdDocument.setText("");
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID ingresado en cliente o en Documento debe ser un numero entero positivo.");
+            jTextFieldIdCliente.setText("");
+            jTextFieldIdDocument.setText("");
+        }
+    }//GEN-LAST:event_jButtonPrestarDocumentoActionPerformed
+
+    private void jButtonRegresarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarDocumentoActionPerformed
+        // TODO add your handling code here:
+        try {
+            String idClienteRetorno=jTextFieldIdClienteRegresoDoc.getText();
+            String iddocumentoRetorno=jTextFieldIdDocRetornoDoc.getText();
+            int idClientePrestamo2=Integer.parseInt(jTextFieldIdClienteRegresoDoc.getText());
+            int iddocumentoprestamo2=Integer.parseInt(jTextFieldIdDocRetornoDoc.getText());
+            if (iddocumentoRetorno.length()>6) {
+                JOptionPane.showMessageDialog(null, "Ingrese un ID menor a 6 cifras");
+            }
+            else{
+                biblioteca.setRetorno(idClienteRetorno, iddocumentoRetorno);
+            jTextFieldIdClienteRegresoDoc.setText("");
+            jTextFieldIdDocRetornoDoc.setText("");
+            }
+        } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, "El ID ingresado en cliente o en Documento debe ser un numero entero positivo.");
+        }
+    }//GEN-LAST:event_jButtonRegresarDocumentoActionPerformed
+
+    private void jButtonRegresarDocumento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarDocumento1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String idCliente=jTextFieldIdClienteClientes.getText();
+            int idCliente2=Integer.parseInt(jTextFieldIdClienteClientes.getText());
+            Cliente cliente=biblioteca.buscarClienteId(idCliente);
+            JOptionPane.showMessageDialog(null, "La cantidad de documentos en prestamo para el cliente con id "+idCliente+" es de: "+cliente.getDocPrestados()+" y la cantidad total que ha pedido es de: "+cliente.getDocPrestadosTotal());
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "El cliente no se encuentra. Intente con otro ID");
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "El Id del cliente tiene que ser un numero entero positivo.");
+        }
+    }//GEN-LAST:event_jButtonRegresarDocumento1ActionPerformed
+
+    private void jButtonProrrogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProrrogaActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Su pretamo de 15 días se ha extendido a 30.");
+    }//GEN-LAST:event_jButtonProrrogaActionPerformed
+
+    private void jButtonMayoresClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMayoresClientesActionPerformed
+        // TODO add your handling code here:
+        try {
+            Cliente [] clientes=null;
+            clientes=biblioteca.calcular3MayoresClientes();
+            if (clientes == null) {
+                JOptionPane.showMessageDialog(null, "Al menos ingrese 3 clientes para el concurso.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Te mostrare a los ganadores");
+                for (Cliente cliente1 : clientes) {
+                    JOptionPane.showMessageDialog(null, "" + cliente1.getNombreCliente() + " con el ID: " + cliente1.getIdCliente() + " con un total de: " + cliente1.getDocPrestadosTotal() + " documentos prestados en total.");
+                }
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error.");
+        }
+        
+    }//GEN-LAST:event_jButtonMayoresClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -914,9 +1202,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButtonIngresarRevista;
     private javax.swing.JButton jButtonMayoresClientes;
     private javax.swing.JButton jButtonPrestarDocumento;
-    private javax.swing.JButton jButtonPrestarDocumento1;
     private javax.swing.JButton jButtonProrroga;
-    private javax.swing.JButton jButtonProrroga1;
     private javax.swing.JButton jButtonRegresarDocumento;
     private javax.swing.JButton jButtonRegresarDocumento1;
     protected javax.swing.JComboBox<String> jComboBoxMateriaArticulo;
@@ -953,9 +1239,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -972,7 +1255,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
@@ -992,22 +1274,20 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCantidadLibro;
     private javax.swing.JTextField jTextFieldCantidadRevista;
     private javax.swing.JTextField jTextFieldCasaProductoraCD;
+    private javax.swing.JTextField jTextFieldDireccionClienteNuevo;
     private javax.swing.JTextField jTextFieldEditorialLibro;
     private javax.swing.JTextField jTextFieldIDArticulo;
     private javax.swing.JTextField jTextFieldIDCd;
     private javax.swing.JTextField jTextFieldIDLibro;
     private javax.swing.JTextField jTextFieldIDRevista;
     private javax.swing.JTextField jTextFieldIdCliente;
-    private javax.swing.JTextField jTextFieldIdCliente1;
     private javax.swing.JTextField jTextFieldIdClienteClientes;
+    private javax.swing.JTextField jTextFieldIdClienteNuevo;
     private javax.swing.JTextField jTextFieldIdClienteRegresoDoc;
     private javax.swing.JTextField jTextFieldIdDocRetornoDoc;
     private javax.swing.JTextField jTextFieldIdDocument;
-    private javax.swing.JTextField jTextFieldIdDocument1;
     private javax.swing.JTextField jTextFieldNoRevista;
     private javax.swing.JTextField jTextFieldNombreClienteNuevo;
-    private javax.swing.JTextField jTextFieldNombreClienteNuevo1;
-    private javax.swing.JTextField jTextFieldNombreClienteNuevo2;
     private javax.swing.JTextField jTextFieldTituloArticulo;
     private javax.swing.JTextField jTextFieldTituloCd;
     private javax.swing.JTextField jTextFieldTituloLibro;

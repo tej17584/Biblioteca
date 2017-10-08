@@ -1,5 +1,9 @@
 
+import java.awt.AWTError;
+import java.awt.HeadlessException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /*
@@ -14,13 +18,13 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * ESta clase es la que contiene toda la inteligencia general
  */
-public final class Biblioteca {
-    ArrayList<Documento> documentos;
-    ArrayList<Cliente> clientes;
-    Articulo articulo;
-    Libro libro;
-    Revista revista;
-    Cd cd;
+public  class Biblioteca {
+    protected ArrayList<Documento> documentos;
+    protected ArrayList<Cliente> clientes;
+    protected Articulo articulo;
+    protected Libro libro;
+    protected Revista revista;
+    protected Cd cd;
     
     public Biblioteca(){
         documentos= new ArrayList<>();
@@ -31,7 +35,7 @@ public final class Biblioteca {
         cd= new Cd();
         valoresIniciales();   
     }
-    public void valoresIniciales(){
+    private void valoresIniciales(){
         Articulo a1= new Articulo();
         Articulo a2= new Articulo();
         Articulo a3= new Articulo();
@@ -47,7 +51,7 @@ public final class Biblioteca {
         Revista r3= new Revista();
         a1.setArticulo("111110", "Los Cinco Furiosos", "Ciencia", 5, "Didier Lopez");
         documentos.add(a1);
-        a2.setArticulo("111111", "El Mouse", "Tecnologia", 0, "Mouse Lopez");
+        a2.setArticulo("111111", "El Mouse", "Tecnologia", 5, "Mouse Lopez");
         documentos.add(a2);
         a3.setArticulo("111112", "La computadora", "Tecnologia", 6, "Marlon Lopez");
         documentos.add(a3);
@@ -85,6 +89,7 @@ public final class Biblioteca {
         Libro libro= new Libro();
         libro.setLibro(idLibro, tituloLibro, autorLibro, materiaLibro, editorialLibro, cantidadLibro);
         documentos.add(libro);
+        JOptionPane.showMessageDialog(null, "Libro ingresado con exito");
     }
     /**
      * ESte metodo crea un nuevo documento de tipo Cd
@@ -98,6 +103,7 @@ public final class Biblioteca {
     public void setCd(String idCD, String tituloCd, String materiaCd, int cantidadCD, String casaProductoraCD, String fechaProduccionCD){
         Cd cd= new Cd();
         cd.setCd(idCD, tituloCd, materiaCd, cantidadCD, casaProductoraCD, fechaProduccionCD);
+        JOptionPane.showMessageDialog(null, "Cd ingresado con exito");
         documentos.add(cd);
     }
     /**
@@ -113,6 +119,7 @@ public final class Biblioteca {
         Revista revista= new Revista();
         revista.setRevista(idRevista, tituloRevista, materiaRevista, cantidadRevista, anioPRevista, numeroDeRevista);
         documentos.add(revista);
+        JOptionPane.showMessageDialog(null, "Revista ingresado con exito");
     }
     /**
      * Este crea un nuevo articulo
@@ -126,6 +133,7 @@ public final class Biblioteca {
         Articulo articulo = new Articulo();
         articulo.setArticulo(idArticulo, tituloArticulo, materiaArticulo, cantidadArticulo, arbitroArticulo);
         documentos.add(articulo);
+        JOptionPane.showMessageDialog(null, "Articulo ingresado con exito");
     }
     
     /**
@@ -138,7 +146,13 @@ public final class Biblioteca {
         Cliente cliente= new Cliente();
         cliente.setCliente(idCliente,nombreCliente, direccionCliente);
         clientes.add(cliente);
+        JOptionPane.showMessageDialog(null, "Cliente ingresado con exito");
     }
+    /**
+     * Este metodo configura un nuevo prestamo
+     * @param idCliente un string con el id del cliente
+     * @param idDocumento un string con el id del documento
+     */
     public void setPrestamo(String idCliente, String idDocumento){
         Documento doc=null;
         Cliente cliente=null;
@@ -154,12 +168,34 @@ public final class Biblioteca {
                 cliente.setPrestamo(doc);
                 cliente.aumentarDocEnPretamo(idCliente);
                 cliente.aumentarDocPrestados(idCliente);
-                System.out.println(cliente.getCantidadArray(idCliente));
+                doc.disminuirCantidad();
+                JOptionPane.showMessageDialog(null, "Prestamo ingresado con exito");
             }
             
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se encontró el Id del documento o el Id del cliente");
-        }   
+        }  
+        catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Ocurrio un error vuelva a intentarlo.");
+        }
+    }
+    /**
+     * Este metodo devuelve un libro a la biblioteca
+     * @param idCliente un stringcon el Id del cliente
+     * @param idDocumento un string con el id del documento
+     */
+    public void setRetorno(String idCliente, String idDocumento){
+        Documento doc=null;
+        Cliente cliente=null;
+        try {
+            doc=getDocumentoId(idDocumento);
+            cliente=buscarClienteId(idCliente);
+            doc.disminuirCantidad();
+            cliente.quitarDocEnPrestamo();
+            JOptionPane.showMessageDialog(null, "Devolucion hecha con exito.");
+        } catch (NullPointerException e) {
+             JOptionPane.showMessageDialog(null, "No se encontró el Id del documento o el Id del cliente");
+        }
     }
     /**
      * Este metodo devuelve un objeto d e tipo documento en la lsita que coincida con el ID de documento
@@ -178,6 +214,40 @@ public final class Biblioteca {
         return docRetorno;
     }
     /**
+     * Este metodo nos verifica si existe el doc
+     * @param idDoc un strin con el id del documento
+     * @return un booleano que nos indica si esxiste o no
+     */
+    public boolean verificarIDDoc(String idDoc){
+        boolean retorno=false;
+        Documento doc= null;
+        for (int i = 0; i < documentos.size(); i++) {
+            doc=documentos.get(i);
+            if (doc.getIdDoc().equals(idDoc)) {
+                retorno=true;
+                return retorno;
+            }
+        }
+        return retorno;
+    }
+    /**
+     * Este metodo verifica que hayan clientes con ese ID
+     * @param idCliente un id con el cliente un string
+     * @return un tipo booleano que indica si esta o no
+     */
+    public boolean verificarIdCliente(String idCliente){
+        boolean retorno=false;
+        Cliente cliente=null;
+        for (int i = 0; i < clientes.size(); i++) {
+            cliente=clientes.get(i);
+            if (cliente.getIdCliente().equals(idCliente)) {
+                retorno=true;
+                return retorno;
+            }
+        }
+        return retorno;
+    }
+    /**
      * Este método retorna un cliente buscado por su ID
      * @param idCliente es un string con el id del cliente
      * @return el cliente que cuadre con el Id ingresado
@@ -194,6 +264,23 @@ public final class Biblioteca {
         return clienteRetorno;
     }
     /**
+     * Este método retorna un cliente basado en sus libros
+     * @param cantLibros es un string con el id del cliente
+     * @return el cliente que cuadre con el los doc ingresado
+     */
+    public Cliente buscarClienteCantDoc(int cantLibros){
+        Cliente cliente=null;
+        Cliente clienteRetorno=null;
+        for (int i = 0; i < clientes.size(); i++) {
+            cliente=clientes.get(i);
+            if (cliente.getDocPrestadosTotal()==cantLibros) {
+                clienteRetorno=cliente;
+                return clienteRetorno;
+            }
+        }
+        return clienteRetorno;
+    }
+    /**
      * Este metodo busca un nombre de un id de cliente
      * @param idCliente el String con el ID del cliente
      * @return un String con el nombre del cliente
@@ -205,13 +292,51 @@ public final class Biblioteca {
         return nombreCliente;
     }
     
-    public static void main(String[] args) {
-        Biblioteca biblioteca= new Biblioteca();
-        Cliente cliente= new Cliente();
-        System.out.println("HOLAAAAAAAAAA");
-        biblioteca.setCliente("17584", "Alejandro Tejada", "zona 18");
-        biblioteca.setCliente("17238", "Diego Sevilla", "Mixco");
-        biblioteca.setPrestamo("17584", "111111");
-        
+    /**
+     * Este metodo nos dice cuantos hay de una materia
+     * @param materia un string con la materia
+     * @return un integer con la cantidad de la materia
+     */
+    public int cantidadDocumentosMateria(String materia){
+        int cantidad=0;
+        Documento doc=null;
+        for (int i = 0; i < documentos.size(); i++) {
+            doc=documentos.get(i);
+            if (doc.getMateriaDoc().equals(materia)) {
+                cantidad++;
+            }
+        }
+        return cantidad;
     }
+    /**
+     * Este metodo calcula los 3 mayores clientes
+     * @return un vector tipo Cliente
+     */
+    public Cliente[] calcular3MayoresClientes(){
+        Cliente[] retorno=new Cliente[clientes.size()];
+        Integer [] prestamos= new Integer[clientes.size()];
+        Cliente doc=null;
+        Documento doc1=null;
+        int aux=0;
+        for (int i = 0; i < clientes.size(); i++) {
+            doc=clientes.get(i);
+            prestamos[i]=doc.getDocPrestadosTotal();
+        }
+        System.out.println("Sin ordenar: "+Arrays.asList(prestamos));
+        for (int i = 0; i < prestamos.length; i++) {
+            for (int j = i+1; j < prestamos.length; j++) {
+                if(prestamos[i] < prestamos[j]){
+                    aux = prestamos[i];
+                    prestamos[i] = prestamos[j];
+                    prestamos[j] = aux;
+                }
+            }
+        }
+        System.out.println("Ordenado "+Arrays.asList(prestamos));
+        for (int i = 0; i < prestamos.length; i++) {
+            retorno[i]=buscarClienteCantDoc(prestamos[i]);
+        }	
+        return retorno;
+    }
+   
 }

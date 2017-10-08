@@ -70,6 +70,18 @@ public class Documento {
         return this.cantidadE;
     }
     /**
+     * Este metodo disminuye la cantidad de documentos
+     */
+    public void disminuirCantidad(){
+        this.cantidadE--;
+    }
+    /**
+     * Este metodo aumenta la cantidad de documentos
+     */
+    public void aumentarCantidad(){
+        this.cantidadE++;
+    }
+    /**
      * Este metodo retorna si esta disponible o no
      * @return un booleano de la disponibilidad
      */
